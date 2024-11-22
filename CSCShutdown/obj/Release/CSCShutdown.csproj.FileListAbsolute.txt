@@ -1,0 +1,13 @@
+C:\Users\yccsokchea\source\repos\CSCShutdown\CSCShutdown\bin\Release\CSCShutdown.exe.config
+C:\Users\yccsokchea\source\repos\CSCShutdown\CSCShutdown\bin\Release\CSCShutdown.exe
+C:\Users\yccsokchea\source\repos\CSCShutdown\CSCShutdown\bin\Release\CSCShutdown.pdb
+C:\Users\yccsokchea\source\repos\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.CSCShutdown.resources
+C:\Users\yccsokchea\source\repos\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.Properties.Resources.resources
+C:\Users\yccsokchea\source\repos\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.csproj.GenerateResource.cache
+C:\Users\yccsokchea\source\repos\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.csproj.CoreCompileInputs.cache
+C:\Users\yccsokchea\source\repos\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.exe
+C:\Users\yccsokchea\source\repos\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.pdb
+C:\Users\yccsokchea\source\repos\CSCShutdown\CSCShutdown\obj\Release\Interop.IWshRuntimeLibrary.dll
+C:\Users\yccsokchea\source\repos\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.csproj.ResolveComReference.cache
+C:\Users\yccsokchea\source\repos\CSCShutdown\CSCShutdown\obj\Release\Interop.Shell32.dll
+C:\Users\yccsokchea\source\repos\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.csproj.AssemblyReference.cache
