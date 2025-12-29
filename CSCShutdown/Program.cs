@@ -25,7 +25,7 @@ namespace CSCShutdown
                 }
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
-                Application.Run(new CSCShutdown());
+                Application.Run(new FormShutdown());
             }
             //Application.EnableVisualStyles();
             //Application.SetCompatibleTextRenderingDefault(false);

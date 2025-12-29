@@ -1,7 +1,7 @@
 ﻿
 namespace CSCShutdown
 {
-    partial class CSCShutdown
+    partial class FormShutdown
     {
         /// <summary>
         /// Required designer variable.
@@ -30,7 +30,7 @@ namespace CSCShutdown
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CSCShutdown));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormShutdown));
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.contextMenuStrip1 = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.showToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -84,31 +84,33 @@ namespace CSCShutdown
             // 
             // contextMenuStrip1
             // 
+            this.contextMenuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.contextMenuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.showToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(106, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(115, 52);
             // 
             // showToolStripMenuItem
             // 
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.showToolStripMenuItem.Text = "Show";
             this.showToolStripMenuItem.Click += new System.EventHandler(this.showToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(114, 24);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
             // btnSave
             // 
-            this.btnSave.Location = new System.Drawing.Point(412, 224);
+            this.btnSave.Location = new System.Drawing.Point(549, 276);
+            this.btnSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.btnSave.Name = "btnSave";
-            this.btnSave.Size = new System.Drawing.Size(82, 28);
+            this.btnSave.Size = new System.Drawing.Size(109, 34);
             this.btnSave.TabIndex = 0;
             this.btnSave.Text = "Save";
             this.btnSave.UseVisualStyleBackColor = true;
@@ -117,15 +119,16 @@ namespace CSCShutdown
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 360000;
+            this.timer1.Interval = 1000;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 194);
+            this.label1.Location = new System.Drawing.Point(24, 239);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(44, 13);
+            this.label1.Size = new System.Drawing.Size(51, 16);
             this.label1.TabIndex = 1;
             this.label1.Text = "status : ";
             // 
@@ -135,9 +138,11 @@ namespace CSCShutdown
             this.groupBox1.Controls.Add(this.rbDWeek);
             this.groupBox1.Controls.Add(this.rbMonthly);
             this.groupBox1.Controls.Add(this.rbDaily);
-            this.groupBox1.Location = new System.Drawing.Point(15, 12);
+            this.groupBox1.Location = new System.Drawing.Point(20, 15);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(104, 159);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Size = new System.Drawing.Size(139, 196);
             this.groupBox1.TabIndex = 2;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Type";
@@ -145,9 +150,10 @@ namespace CSCShutdown
             // rbDmonth
             // 
             this.rbDmonth.AutoSize = true;
-            this.rbDmonth.Location = new System.Drawing.Point(6, 88);
+            this.rbDmonth.Location = new System.Drawing.Point(8, 108);
+            this.rbDmonth.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rbDmonth.Name = "rbDmonth";
-            this.rbDmonth.Size = new System.Drawing.Size(89, 17);
+            this.rbDmonth.Size = new System.Drawing.Size(106, 20);
             this.rbDmonth.TabIndex = 2;
             this.rbDmonth.Text = "Day of Month";
             this.rbDmonth.UseVisualStyleBackColor = true;
@@ -156,9 +162,10 @@ namespace CSCShutdown
             // rbDWeek
             // 
             this.rbDWeek.AutoSize = true;
-            this.rbDWeek.Location = new System.Drawing.Point(6, 65);
+            this.rbDWeek.Location = new System.Drawing.Point(8, 80);
+            this.rbDWeek.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rbDWeek.Name = "rbDWeek";
-            this.rbDWeek.Size = new System.Drawing.Size(88, 17);
+            this.rbDWeek.Size = new System.Drawing.Size(106, 20);
             this.rbDWeek.TabIndex = 2;
             this.rbDWeek.Text = "Day of Week";
             this.rbDWeek.UseVisualStyleBackColor = true;
@@ -167,9 +174,10 @@ namespace CSCShutdown
             // rbMonthly
             // 
             this.rbMonthly.AutoSize = true;
-            this.rbMonthly.Location = new System.Drawing.Point(6, 42);
+            this.rbMonthly.Location = new System.Drawing.Point(8, 52);
+            this.rbMonthly.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rbMonthly.Name = "rbMonthly";
-            this.rbMonthly.Size = new System.Drawing.Size(62, 17);
+            this.rbMonthly.Size = new System.Drawing.Size(74, 20);
             this.rbMonthly.TabIndex = 1;
             this.rbMonthly.Text = "Monthly";
             this.rbMonthly.UseVisualStyleBackColor = true;
@@ -178,9 +186,10 @@ namespace CSCShutdown
             // rbDaily
             // 
             this.rbDaily.AutoSize = true;
-            this.rbDaily.Location = new System.Drawing.Point(6, 19);
+            this.rbDaily.Location = new System.Drawing.Point(8, 23);
+            this.rbDaily.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rbDaily.Name = "rbDaily";
-            this.rbDaily.Size = new System.Drawing.Size(48, 17);
+            this.rbDaily.Size = new System.Drawing.Size(59, 20);
             this.rbDaily.TabIndex = 0;
             this.rbDaily.Text = "Daily";
             this.rbDaily.UseVisualStyleBackColor = true;
@@ -190,9 +199,11 @@ namespace CSCShutdown
             // 
             this.groupBox2.Controls.Add(this.rbRestart);
             this.groupBox2.Controls.Add(this.rbShutdown);
-            this.groupBox2.Location = new System.Drawing.Point(125, 12);
+            this.groupBox2.Location = new System.Drawing.Point(167, 15);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(104, 159);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Size = new System.Drawing.Size(139, 196);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Operation";
@@ -200,9 +211,10 @@ namespace CSCShutdown
             // rbRestart
             // 
             this.rbRestart.AutoSize = true;
-            this.rbRestart.Location = new System.Drawing.Point(6, 42);
+            this.rbRestart.Location = new System.Drawing.Point(8, 52);
+            this.rbRestart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rbRestart.Name = "rbRestart";
-            this.rbRestart.Size = new System.Drawing.Size(59, 17);
+            this.rbRestart.Size = new System.Drawing.Size(71, 20);
             this.rbRestart.TabIndex = 1;
             this.rbRestart.Text = "Restart";
             this.rbRestart.UseVisualStyleBackColor = true;
@@ -211,9 +223,10 @@ namespace CSCShutdown
             // 
             this.rbShutdown.AutoSize = true;
             this.rbShutdown.Checked = true;
-            this.rbShutdown.Location = new System.Drawing.Point(6, 19);
+            this.rbShutdown.Location = new System.Drawing.Point(8, 23);
+            this.rbShutdown.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.rbShutdown.Name = "rbShutdown";
-            this.rbShutdown.Size = new System.Drawing.Size(73, 17);
+            this.rbShutdown.Size = new System.Drawing.Size(86, 20);
             this.rbShutdown.TabIndex = 0;
             this.rbShutdown.TabStop = true;
             this.rbShutdown.Text = "Shutdown";
@@ -222,63 +235,71 @@ namespace CSCShutdown
             // lblbuild
             // 
             this.lblbuild.AutoSize = true;
-            this.lblbuild.Location = new System.Drawing.Point(12, 244);
+            this.lblbuild.Location = new System.Drawing.Point(16, 300);
+            this.lblbuild.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblbuild.Name = "lblbuild";
-            this.lblbuild.Size = new System.Drawing.Size(51, 13);
+            this.lblbuild.Size = new System.Drawing.Size(62, 16);
             this.lblbuild.TabIndex = 4;
             this.lblbuild.Text = "Version : ";
             // 
             // lblCountDown
             // 
             this.lblCountDown.AutoSize = true;
-            this.lblCountDown.Location = new System.Drawing.Point(19, 215);
+            this.lblCountDown.Location = new System.Drawing.Point(25, 265);
+            this.lblCountDown.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblCountDown.Name = "lblCountDown";
-            this.lblCountDown.Size = new System.Drawing.Size(46, 13);
+            this.lblCountDown.Size = new System.Drawing.Size(53, 16);
             this.lblCountDown.TabIndex = 5;
             this.lblCountDown.Text = "Status : ";
             // 
             // lblNow
             // 
             this.lblNow.AutoSize = true;
-            this.lblNow.Location = new System.Drawing.Point(105, 174);
+            this.lblNow.Location = new System.Drawing.Point(140, 214);
+            this.lblNow.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblNow.Name = "lblNow";
-            this.lblNow.Size = new System.Drawing.Size(27, 13);
+            this.lblNow.Size = new System.Drawing.Size(30, 16);
             this.lblNow.TabIndex = 3;
             this.lblNow.Text = "N/A";
             // 
             // lblDateN
             // 
             this.lblDateN.AutoSize = true;
-            this.lblDateN.Location = new System.Drawing.Point(367, 174);
+            this.lblDateN.Location = new System.Drawing.Point(489, 214);
+            this.lblDateN.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDateN.Name = "lblDateN";
-            this.lblDateN.Size = new System.Drawing.Size(27, 13);
+            this.lblDateN.Size = new System.Drawing.Size(30, 16);
             this.lblDateN.TabIndex = 4;
             this.lblDateN.Text = "N/A";
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 174);
+            this.label3.Location = new System.Drawing.Point(24, 214);
+            this.label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(73, 13);
+            this.label3.Size = new System.Drawing.Size(87, 16);
             this.label3.TabIndex = 5;
             this.label3.Text = "Current Date :";
             // 
             // lblSDD
             // 
             this.lblSDD.AutoSize = true;
-            this.lblSDD.Location = new System.Drawing.Point(255, 174);
+            this.lblSDD.Location = new System.Drawing.Point(340, 214);
+            this.lblSDD.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblSDD.Name = "lblSDD";
-            this.lblSDD.Size = new System.Drawing.Size(112, 13);
+            this.lblSDD.Size = new System.Drawing.Size(133, 16);
             this.lblSDD.TabIndex = 6;
             this.lblSDD.Text = "Next Shutdown Date :";
             // 
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.flowLayoutPanel1);
-            this.groupBox3.Location = new System.Drawing.Point(235, 12);
+            this.groupBox3.Location = new System.Drawing.Point(313, 15);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(259, 159);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Size = new System.Drawing.Size(345, 196);
             this.groupBox3.TabIndex = 7;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Setup";
@@ -293,43 +314,48 @@ namespace CSCShutdown
             this.flowLayoutPanel1.Controls.Add(this.dateTimePicker1);
             this.flowLayoutPanel1.Controls.Add(this.cbStart);
             this.flowLayoutPanel1.Controls.Add(this.cbState);
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(6, 14);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(8, 17);
+            this.flowLayoutPanel1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(179, 139);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(239, 171);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // lblDay
             // 
             this.lblDay.AutoSize = true;
-            this.lblDay.Location = new System.Drawing.Point(3, 0);
+            this.lblDay.Location = new System.Drawing.Point(4, 0);
+            this.lblDay.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lblDay.Name = "lblDay";
-            this.lblDay.Size = new System.Drawing.Size(26, 13);
+            this.lblDay.Size = new System.Drawing.Size(32, 16);
             this.lblDay.TabIndex = 3;
             this.lblDay.Text = "Day";
             // 
             // cboDayNo
             // 
             this.cboDayNo.FormattingEnabled = true;
-            this.cboDayNo.Location = new System.Drawing.Point(3, 16);
+            this.cboDayNo.Location = new System.Drawing.Point(4, 20);
+            this.cboDayNo.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboDayNo.Name = "cboDayNo";
-            this.cboDayNo.Size = new System.Drawing.Size(152, 21);
+            this.cboDayNo.Size = new System.Drawing.Size(201, 24);
             this.cboDayNo.TabIndex = 5;
             this.cboDayNo.Visible = false;
             // 
             // cboDay
             // 
             this.cboDay.FormattingEnabled = true;
-            this.cboDay.Location = new System.Drawing.Point(3, 43);
+            this.cboDay.Location = new System.Drawing.Point(4, 52);
+            this.cboDay.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cboDay.Name = "cboDay";
-            this.cboDay.Size = new System.Drawing.Size(152, 21);
+            this.cboDay.Size = new System.Drawing.Size(201, 24);
             this.cboDay.TabIndex = 0;
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(3, 67);
+            this.label2.Location = new System.Drawing.Point(4, 80);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(30, 13);
+            this.label2.Size = new System.Drawing.Size(38, 16);
             this.label2.TabIndex = 2;
             this.label2.Text = "Time";
             // 
@@ -337,25 +363,28 @@ namespace CSCShutdown
             // 
             this.dtpHour.CustomFormat = "HH:mm:ss";
             this.dtpHour.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dtpHour.Location = new System.Drawing.Point(3, 83);
+            this.dtpHour.Location = new System.Drawing.Point(4, 100);
+            this.dtpHour.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dtpHour.Name = "dtpHour";
-            this.dtpHour.Size = new System.Drawing.Size(152, 20);
+            this.dtpHour.Size = new System.Drawing.Size(201, 22);
             this.dtpHour.TabIndex = 1;
             // 
             // dateTimePicker1
             // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(3, 109);
+            this.dateTimePicker1.Location = new System.Drawing.Point(4, 130);
+            this.dateTimePicker1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(152, 20);
+            this.dateTimePicker1.Size = new System.Drawing.Size(201, 22);
             this.dateTimePicker1.TabIndex = 4;
             this.dateTimePicker1.Visible = false;
             // 
             // cbStart
             // 
             this.cbStart.AutoSize = true;
-            this.cbStart.Location = new System.Drawing.Point(3, 135);
+            this.cbStart.Location = new System.Drawing.Point(4, 160);
+            this.cbStart.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbStart.Name = "cbStart";
-            this.cbStart.Size = new System.Drawing.Size(73, 17);
+            this.cbStart.Size = new System.Drawing.Size(86, 20);
             this.cbStart.TabIndex = 4;
             this.cbStart.Text = "Auto Start";
             this.cbStart.UseVisualStyleBackColor = true;
@@ -363,9 +392,10 @@ namespace CSCShutdown
             // cbState
             // 
             this.cbState.AutoSize = true;
-            this.cbState.Location = new System.Drawing.Point(3, 158);
+            this.cbState.Location = new System.Drawing.Point(4, 188);
+            this.cbState.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.cbState.Name = "cbState";
-            this.cbState.Size = new System.Drawing.Size(119, 17);
+            this.cbState.Size = new System.Drawing.Size(145, 20);
             this.cbState.TabIndex = 4;
             this.cbState.Text = "Minimize on start up";
             this.cbState.UseVisualStyleBackColor = true;
@@ -373,29 +403,31 @@ namespace CSCShutdown
             // lbltimer
             // 
             this.lbltimer.AutoSize = true;
-            this.lbltimer.Location = new System.Drawing.Point(105, 215);
+            this.lbltimer.Location = new System.Drawing.Point(140, 265);
+            this.lbltimer.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.lbltimer.Name = "lbltimer";
-            this.lbltimer.Size = new System.Drawing.Size(48, 13);
+            this.lbltimer.Size = new System.Drawing.Size(61, 16);
             this.lbltimer.TabIndex = 8;
             this.lbltimer.Text = "TimerCD";
             this.lbltimer.Visible = false;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(258, 229);
+            this.button1.Location = new System.Drawing.Point(344, 282);
+            this.button1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(100, 28);
             this.button1.TabIndex = 9;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
-            // CSCShutdown
+            // FormShutdown
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(506, 266);
+            this.ClientSize = new System.Drawing.Size(675, 327);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.lbltimer);
             this.Controls.Add(this.groupBox2);
@@ -411,8 +443,9 @@ namespace CSCShutdown
             this.Controls.Add(this.btnSave);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.MaximizeBox = false;
-            this.Name = "CSCShutdown";
+            this.Name = "FormShutdown";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CSCShutdown";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CSCShutdown_FormClosing);

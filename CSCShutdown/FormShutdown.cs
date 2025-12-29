@@ -16,13 +16,13 @@ using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 namespace CSCShutdown
 {
-    public partial class CSCShutdown : Form
+    public partial class FormShutdown : Form
     {
         Version version=Assembly.GetExecutingAssembly().GetName().Version;
         Dictionary<string, string> settings = new Dictionary<string, string>();
         string dayName;
         DateTime date;
-        DateTime today;
+        DateTime dateToday=DateTime.Now;
         int type;
         bool opera;
         int dayNo;
@@ -30,7 +30,7 @@ namespace CSCShutdown
         bool isMinimize;
         static DateTime nextTargetTime;
         static System.Timers.Timer timer;
-        public CSCShutdown()
+        public FormShutdown()
         {
             InitializeComponent();            
 
@@ -53,6 +53,7 @@ namespace CSCShutdown
                     StartupShortcut.AddApplicationToStartup();
             }
             ConfigureStartupCheckbox();
+            dateToday= DateTime.Now;
         }
         private void ConfigureStartupCheckbox()
         {
@@ -117,34 +118,47 @@ namespace CSCShutdown
         {
             try
             {
-                today = DateTime.Now;
+                Console.WriteLine(timer1.Interval.ToString());
+                dateToday = DateTime.Now;
                 //today = Convert.ToDateTime(dateTimePicker1.Value.ToString("dd/MM/yyy") + " " + DateTime.Now.TimeOfDay.ToString());            
-                daysInCurrentMonth = DateTime.DaysInMonth(today.Year, today.Month);
+                daysInCurrentMonth = DateTime.DaysInMonth(dateToday.Year, dateToday.Month);
                 dayNo = dayNo > daysInCurrentMonth ? daysInCurrentMonth : dayNo;
                 //date = Convert.ToDateTime(dayNo.ToString() + today.ToString("/MM/yyy") + " " + date.TimeOfDay.ToString());
-                lbltimer.Text = date.ToString() + " " + today.ToString() + " " + (date - today).TotalMinutes.ToString();
+                lbltimer.Text = date.ToString() + " " + dateToday.ToString() + " " + (date - dateToday).TotalMinutes.ToString();
                 doShutdownorRestart();
 
-                lblNow.Text = today.ToShortDateString();
-                lblDateN.Text = SystemCTL.GetFirstSundayOfMonth(today.AddMonths(1), dayName).ToShortDateString();
+                lblNow.Text = dateToday.ToShortDateString();
+                lblDateN.Text = SystemCTL.GetFirstSundayOfMonth(dateToday.AddMonths(1), dayName).ToShortDateString();
 
-               // DateTime nextWeekDay;
-               // TimeSpan remaining;
-                
-               //// Console.WriteLine($"Days: {remaining.Days}, Hours: {remaining.Hours}, Minutes: {remaining.Minutes}");
-               // if (rbDWeek.Checked)
-               // {
-               //     nextWeekDay = SystemCTL.GetNextDay(today, dayName, new TimeSpan(21, 0, 0));
-               //     remaining = (nextWeekDay.Date.AddHours(date.Hour) - DateTime.Now);
-               // }
-               // else if (rbDmonth.Checked)
-               // {
-               //     nextWeekDay = SystemCTL.GetFirstSundayOfMonth(today.AddMonths(1), dayName);
-               //     remaining = (nextWeekDay.Date.AddHours(date.Hour) - DateTime.Now);
-               // }
-               // remaining = date - today;
-               //var remaining = diff.TotalMinutes;
-                              
+                var t1 = dateToday;
+                var t2 = date;
+                var t3 = (t2 - t1);
+
+                Console.WriteLine($"Inverval: {timer1.Interval.ToString()} Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+                //reset timer
+                if (t3.Days >= 0 && t3.Hours >= 2 && t3.Minutes >= 0)
+                {
+                    timer1.Interval = (int)TimeSpan.FromHours(1).TotalMilliseconds; // 1h
+                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+                }
+                else if (t3.Days >= 0 && t3.Hours >= 1 && t3.Minutes >= 0)
+                {
+                    timer1.Interval = (int)TimeSpan.FromMinutes(30).TotalMilliseconds; // 30m
+                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+                }
+                else
+                if (t3.Days >= 0 && t3.Hours >= 0 && t3.Minutes >= 30)
+                {
+                    timer1.Interval = (int)TimeSpan.FromSeconds(10).TotalMilliseconds; // 10s                                                                                             
+                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+                }
+                else
+                {
+                    timer1.Interval = 1000; // 1s                                                 
+                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+                }
+                Console.WriteLine($"Inverval: {timer1.Interval.ToString()} Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+
             }
             catch (Exception ex)
             {
@@ -452,6 +466,7 @@ Startup=False";
 
         private void doShutdownorRestart()
         {            
+            dateToday= DateTime.Now;
             switch (type)
             {
                 case 1:                   
@@ -472,37 +487,37 @@ Startup=False";
         {
             lblSDD.Visible = false;
             lblDateN.Visible = false;
-            date = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + date.TimeOfDay.ToString());
+            dateToday = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + dateToday.TimeOfDay.ToString());
             DoOperation();
         }
         int daysInCurrentMonth;
         private void isMonthly()
         {
             if(DateTime.Now.Day>dayNo)
-                date = Convert.ToDateTime(dayNo.ToString() +$"/{DateTime.Now.AddMonths(1).Month.ToString()}"+ today.ToString("/yyy") + " " + date.TimeOfDay.ToString());
+                dateToday = Convert.ToDateTime(dayNo.ToString() +$"/{DateTime.Now.AddMonths(1).Month.ToString()}"+ dateToday.ToString("/yyy") + " " + dateToday.TimeOfDay.ToString());
             else
-                date = Convert.ToDateTime(dayNo.ToString() + today.ToString("/MM/yyy") + " " + date.TimeOfDay.ToString());
+                dateToday = Convert.ToDateTime(dayNo.ToString() + dateToday.ToString("/MM/yyy") + " " + dateToday.TimeOfDay.ToString());
             lblSDD.Visible = false;
             lblDateN.Visible = false;
 
-            if (SystemCTL.IsMonthly(date) && today.Day==dayNo )
+            if (SystemCTL.IsMonthly(date) && dateToday.Day==dayNo )
             {
                 DoOperation();
 
-                label1.Text = $"{today:dddd, MMMM d, yyyy} is day {dayNo.ToString()} of the Month.";
+                label1.Text = $"{dateToday:dddd, MMMM d, yyyy} is day {dayNo.ToString()} of the Month.";
             }
             else
             {
-                if(today.Day == daysInCurrentMonth)
+                if(dateToday.Day == daysInCurrentMonth)
                 {
                     lblCountDown.Text = "Not time yet! ";
                     DoOperation();
 
-                    label1.Text = $"{today:dddd, MMMM d, yyyy} is day {daysInCurrentMonth} of the Month.";
+                    label1.Text = $"{dateToday:dddd, MMMM d, yyyy} is day {daysInCurrentMonth} of the Month.";
                 }
                 else
                 {
-                    label1.Text = $"{today:dddd, MMMM d, yyyy} is not day {dayNo.ToString()} of the Month.";
+                    label1.Text = $"{dateToday:dddd, MMMM d, yyyy} is not day {dayNo.ToString()} of the Month.";
 
                     lblCountDown.Text = "Not time yet! ";
                 }
@@ -513,17 +528,18 @@ Startup=False";
         {
             lblSDD.Visible = false;
             lblDateN.Visible = false;
-            date = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + date.TimeOfDay.ToString());
-            if (SystemCTL.IsDayofWeek(today, dayName))
+            //date=dateToday;
+            dateToday = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + dateToday.TimeOfDay.ToString());
+            if (SystemCTL.IsDayofWeek(dateToday, dayName))
             {
                 DoOperation();
                 //Console.WriteLine("It's time to do operation");
-                label1.Text = $"{today:dddd, MMMM d, yyyy} is {dayName} of the week.";
+                label1.Text = $"{dateToday:dddd, MMMM d, yyyy} is {dayName} of the week.";
 
             }
             else
             {
-                label1.Text = $"{today:dddd, MMMM d, yyyy} is not {dayName} of the week.";
+                label1.Text = $"{dateToday:dddd, MMMM d, yyyy} is not {dayName} of the week.";
                 lblCountDown.Text = "Not time yet! ";
             }
         }
@@ -531,16 +547,16 @@ Startup=False";
         {
             lblSDD.Visible = true;
             lblDateN.Visible = true;
-            DateTime today = DateTime.Today;
-            if (SystemCTL.IsFirstDayofMonth(today, dayName))
+            dateToday = DateTime.Today;
+            if (SystemCTL.IsFirstDayofMonth(dateToday, dayName))
             {
                 DoOperation();
 
-                label1.Text = $"{today:dddd, MMMM d, yyyy} is the first {dayName} of the month.";
+                label1.Text = $"{dateToday:dddd, MMMM d, yyyy} is the first {dayName} of the month.";
             }
             else
             {
-                label1.Text = $"{today:dddd, MMMM d, yyyy} is not the first {dayName} of the month.";
+                label1.Text = $"{dateToday:dddd, MMMM d, yyyy} is not the first {dayName} of the month.";
                 lblCountDown.Text = "Not time yet! ";
 
             }
@@ -556,9 +572,10 @@ Startup=False";
         
         private void DoOperation()
         {
-            var t1 = today;
+            var t1 = dateToday;
             var t2 = date;
-            var t3 = (t2 - t1);
+            var t3 = (t2 - t1);            
+
             var operation = opera == true ? "Shutdown" : "Restart";
             try
             {
@@ -588,28 +605,7 @@ Startup=False";
                 else
                     lblCountDown.Text = "Not time yet! ";
 
-                //reset timer
-                if (t3.Days >= 0 && t3.Hours >= 2 && t3.Minutes >= 0)
-                {
-                    timer1.Interval = (int)TimeSpan.FromHours(1).TotalMilliseconds; // 1h
-                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
-                }
-                else if (t3.Days >= 0 && t3.Hours >= 1 && t3.Minutes >= 0)
-                {
-                    timer1.Interval = (int)TimeSpan.FromMinutes(30).TotalMilliseconds; // 30m
-                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
-                }
-                else
-                if (t3.Days >= 0 && t3.Hours >= 0 && t3.Minutes >= 30)
-                {
-                    timer1.Interval = (int)TimeSpan.FromSeconds(10).TotalMilliseconds; // 10s                                                                                             
-                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
-                }
-                else
-                {
-                    timer1.Interval = 1000; // 1s                                                 
-                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
-                }
+               
             }
             catch (Exception ex)
             {
@@ -654,7 +650,8 @@ Startup=False";
 
         private void CSCShutdown_Load(object sender, EventArgs e)
         {
-            
+            //dateToday = DateTime.Now;
+            DoOperation();
         }
 
         private void button1_Click(object sender, EventArgs e)
