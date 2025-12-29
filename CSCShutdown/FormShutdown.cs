@@ -134,7 +134,7 @@ namespace CSCShutdown
                 var t2 = date;
                 var t3 = (t2 - t1);
 
-                Console.WriteLine($"Inverval: {timer1.Interval.ToString()} Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+                Console.WriteLine($"Inverval: {timer1.Interval.ToString()}, Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
                 //reset timer
                 if (t3.Days >= 0 && t3.Hours >= 2 && t3.Minutes >= 0)
                 {
@@ -157,7 +157,7 @@ namespace CSCShutdown
                     timer1.Interval = 1000; // 1s                                                 
                     Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
                 }
-                Console.WriteLine($"Inverval: {timer1.Interval.ToString()} Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+                Console.WriteLine($"Inverval: {timer1.Interval.ToString()}, Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
 
             }
             catch (Exception ex)
@@ -651,7 +651,10 @@ Startup=False";
         private void CSCShutdown_Load(object sender, EventArgs e)
         {
             //dateToday = DateTime.Now;
-            DoOperation();
+            //DoOperation();
+           
+            dtpHour.Format = DateTimePickerFormat.Time;
+            dtpHour.ShowUpDown = true;
         }
 
         private void button1_Click(object sender, EventArgs e)
