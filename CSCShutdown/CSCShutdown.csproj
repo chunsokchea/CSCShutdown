@@ -72,10 +72,11 @@
     <Compile Include="FormShutdown.Designer.cs">
       <DependentUpon>FormShutdown.cs</DependentUpon>
     </Compile>
-    <Compile Include="StartupShortcut.cs" />
-    <Compile Include="SystemCTL.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SettingsLoader.cs" />
+    <Compile Include="StartupShortcut.cs" />
+    <Compile Include="SystemCTL.cs" />
     <EmbeddedResource Include="FormShutdown.resx">
       <DependentUpon>FormShutdown.cs</DependentUpon>
     </EmbeddedResource>

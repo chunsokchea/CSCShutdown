@@ -70,7 +70,48 @@ namespace CSCShutdown
         //    // Add the calculated number of days to the first day of the month
         //    return firstDay.AddDays(daysToAdd);
         //}
+        public static DateTime GetNextSunday(DateTime fromDate, TimeSpan? timeOfDay = null)
+        {
+            int daysUntilSunday = ((int)DayOfWeek.Sunday - (int)fromDate.DayOfWeek + 7) % 7;
 
+            // If today is Sunday, move to the next one
+            if (daysUntilSunday == 0)
+                daysUntilSunday = 7;
+
+            DateTime nextSunday = fromDate.AddDays(daysUntilSunday).Date;
+
+            // Apply time of day if provided
+            if (timeOfDay.HasValue)
+            {
+                nextSunday = nextSunday.Add(timeOfDay.Value);
+            }
+
+            return nextSunday;
+        }
+        public static DateTime GetNextDay(DateTime fromDate, string dayName, TimeSpan? timeOfDay = null)
+        {
+            // Parse string into DayOfWeek enum
+            if (!Enum.TryParse(dayName, true, out DayOfWeek targetDay))
+            {
+                throw new ArgumentException("Invalid day name");
+            }
+
+            int daysUntilTarget = ((int)targetDay - (int)fromDate.DayOfWeek + 7) % 7;
+
+            // If today is the target day, skip to the next week
+            if (daysUntilTarget == 0)
+                daysUntilTarget = 7;
+
+            DateTime nextDay = fromDate.AddDays(daysUntilTarget).Date;
+
+            // Apply time of day if provided
+            if (timeOfDay.HasValue)
+            {
+                nextDay = nextDay.Add(timeOfDay.Value);
+            }
+
+            return nextDay;
+        }
         public static void Shutdown(int seconds=0)
         {
             Process.Start(new ProcessStartInfo("shutdown", $"/s /f /t {seconds}")

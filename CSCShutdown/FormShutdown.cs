@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices.ComTypes;
 using System.Text;
+using System.Threading;
+using System.Timers;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 
 namespace CSCShutdown
@@ -14,26 +19,30 @@ namespace CSCShutdown
     public partial class CSCShutdown : Form
     {
         Version version=Assembly.GetExecutingAssembly().GetName().Version;
+        Dictionary<string, string> settings = new Dictionary<string, string>();
         string dayName;
         DateTime date;
+        DateTime today;
         int type;
         bool opera;
         int dayNo;
         bool isStartup;
         bool isMinimize;
+        static DateTime nextTargetTime;
+        static System.Timers.Timer timer;
         public CSCShutdown()
         {
-            InitializeComponent();
-            
+            InitializeComponent();            
 
             dtpHour.Value=DateTime.Now;
             PopulateComboBox(cboDay);
             PopulateComboBoxMonth(cboDayNo);
-            groupBox2.Visible = false;
-            setSetting();
+            groupBox2.Visible = false;            
             lblbuild.Text = lblbuild.Text.ToString() + version.ToString();
 
-            ConfigureStartupCheckbox();
+            checkExisting();
+            setSetting();
+
             if (isMinimize == true)
             {
                 this.WindowState = FormWindowState.Minimized;
@@ -43,6 +52,7 @@ namespace CSCShutdown
                 if (StartupShortcut.IsApplicationInStartup() == false)
                     StartupShortcut.AddApplicationToStartup();
             }
+            ConfigureStartupCheckbox();
         }
         private void ConfigureStartupCheckbox()
         {
@@ -105,16 +115,44 @@ namespace CSCShutdown
         }
         private void Timer1_Tick(object sender, EventArgs e)
         {
-            today = DateTime.Now;
-            //today = Convert.ToDateTime(dateTimePicker1.Value.ToString("dd/MM/yyy") + " " + DateTime.Now.TimeOfDay.ToString());            
-            daysInCurrentMonth = DateTime.DaysInMonth(today.Year, today.Month);
-            dayNo = dayNo > daysInCurrentMonth ? daysInCurrentMonth : dayNo;
-            date = Convert.ToDateTime(dayNo.ToString() + today.ToString("/MM/yyy") + " " + date.TimeOfDay.ToString());
+            try
+            {
+                today = DateTime.Now;
+                //today = Convert.ToDateTime(dateTimePicker1.Value.ToString("dd/MM/yyy") + " " + DateTime.Now.TimeOfDay.ToString());            
+                daysInCurrentMonth = DateTime.DaysInMonth(today.Year, today.Month);
+                dayNo = dayNo > daysInCurrentMonth ? daysInCurrentMonth : dayNo;
+                //date = Convert.ToDateTime(dayNo.ToString() + today.ToString("/MM/yyy") + " " + date.TimeOfDay.ToString());
+                lbltimer.Text = date.ToString() + " " + today.ToString() + " " + (date - today).TotalMinutes.ToString();
+                doShutdownorRestart();
 
-            doShutdownorRestart();            
-            
-            lblNow.Text = today.ToString();
-            lblDateN.Text = date.ToString() ;
+                lblNow.Text = today.ToShortDateString();
+                lblDateN.Text = SystemCTL.GetFirstSundayOfMonth(today.AddMonths(1), dayName).ToShortDateString();
+
+               // DateTime nextWeekDay;
+               // TimeSpan remaining;
+                
+               //// Console.WriteLine($"Days: {remaining.Days}, Hours: {remaining.Hours}, Minutes: {remaining.Minutes}");
+               // if (rbDWeek.Checked)
+               // {
+               //     nextWeekDay = SystemCTL.GetNextDay(today, dayName, new TimeSpan(21, 0, 0));
+               //     remaining = (nextWeekDay.Date.AddHours(date.Hour) - DateTime.Now);
+               // }
+               // else if (rbDmonth.Checked)
+               // {
+               //     nextWeekDay = SystemCTL.GetFirstSundayOfMonth(today.AddMonths(1), dayName);
+               //     remaining = (nextWeekDay.Date.AddHours(date.Hour) - DateTime.Now);
+               // }
+               // remaining = date - today;
+               //var remaining = diff.TotalMinutes;
+                              
+            }
+            catch (Exception ex)
+            {
+                timer1.Stop();
+                Console.WriteLine(ex.ToString());
+                MessageBox.Show("Wrong Setting! " + ex.ToString());
+                
+            }
         }
         private void PopulateComboBoxMonth(ComboBox comboBox1)
         {
@@ -152,6 +190,7 @@ namespace CSCShutdown
                         cboDay.Visible = false;
                         cboDayNo.Visible = false;
                         label1.Text = "Option 1 selected ";
+                        isDaily();
                         break;
                     case "rbMonthly":
                         selectedOption = 2;
@@ -160,7 +199,7 @@ namespace CSCShutdown
                         lblDay.Visible = true;
                         cboDayNo.Visible = true;
                         //dtpDate.CustomFormat = " dd ";
-
+                        isMonthly();
                         label1.Text = "Option 2 selected " ;
                         break;
                     case "rbDWeek":
@@ -171,6 +210,7 @@ namespace CSCShutdown
                         //dtpDate.CustomFormat = " dd(ddd) ";
                         cboDayNo.Visible = false;
                         label1.Text = "Option 3 selected " ;
+                        IsDayofWeek();
                         break;
                     case "rbDmonth":
                         selectedOption = 4;
@@ -180,6 +220,7 @@ namespace CSCShutdown
                         //dtpDate.CustomFormat = " dd(ddd) ";
                         cboDayNo.Visible = false;
                         label1.Text = "Option 4 selected " ;
+                        IsDayofMonth();
                         break;
                     default:
                         label1.Text = "No option selected";
@@ -189,8 +230,7 @@ namespace CSCShutdown
         }
 
         private void btnSave_Click(object sender, EventArgs e)
-        {
-            
+        {            
             if (groupBox2.Visible == false)
             {
                 MessageBox.Show("Please select one of type in select list!");
@@ -201,16 +241,40 @@ namespace CSCShutdown
             type = selectedOption;
             opera= rbShutdown.Checked ? true : false;
             dayNo = Convert.ToInt32(cboDayNo.Text.Trim());
+            isMinimize = cbState.Checked ? true : false;
+            isStartup = cbStart.Checked ? true : false;
+            //Properties.Settings.Default.SDay = dayName;
+            //Properties.Settings.Default.STime = (TimeSpan)date.TimeOfDay;
+            //Properties.Settings.Default.SType = type;
+            //Properties.Settings.Default.Sopera = opera;
+            //Properties.Settings.Default.DayNum = dayNo;
+            //Properties.Settings.Default.IsMinimize = cbState.Checked ? true : false;
+            //Properties.Settings.Default.Startup = cbStart.Checked ? true : false;
+            // Properties.Settings.Default.Save();
+            string settingsText =
+$@"SDay={dayName}
+STime={date.ToString("HH:mm:ss")}
+SType={type}
+Sopera={opera}
+DayNum={dayNo}
+IsMinimize={isMinimize}
+Startup={isStartup}";
 
-            Properties.Settings.Default.SDay = dayName;
-            Properties.Settings.Default.STime = (TimeSpan)date.TimeOfDay;
-            Properties.Settings.Default.SType = type;
-            Properties.Settings.Default.Sopera = opera;
-            Properties.Settings.Default.DayNum = dayNo;
-            Properties.Settings.Default.IsMinimize = cbState.Checked ? true : false;
-            Properties.Settings.Default.Startup = cbStart.Checked ? true : false;
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string appFolder = Path.Combine(documentsPath, "CSCShutdownApp");
 
-            Properties.Settings.Default.Save();
+            // Ensure folder exists
+            if (!Directory.Exists(appFolder))
+            {
+                Directory.CreateDirectory(appFolder);
+            }
+
+            string filePath = Path.Combine(appFolder, "CSCShutdownSettings.txt");
+
+            // Save settings
+            File.WriteAllText(filePath, settingsText);
+
+            //MessageBox.Show("Settings saved successfully!");           
             
             if (cbStart.Checked == true)
             {
@@ -222,21 +286,122 @@ namespace CSCShutdown
                 if (StartupShortcut.IsApplicationInStartup() == true)
                     StartupShortcut.RemoveApplicationFromStartup();
             }
-            //label1.Text = dayNo.ToString()+"-" + Properties.Settings.Default.DayNo.ToString();
+            //label1.Text = dayNo.ToString()+"-" + Properties.Settings.Default.DayNo.ToString();           
+            timer1.Interval = 1000;            
+            setSetting();
             MessageBox.Show("Save New Settings Success!");
         }
-        
+        private void readTxtFile()
+        {
+            string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+            string appFolder = Path.Combine(documentsPath, "CSCShutdownApp");
+            string filePath = Path.Combine(appFolder, "CSCShutdownSettings.txt");
+
+            // Dictionary to hold settings
+            settings = new Dictionary<string, string>();
+
+            if (File.Exists(filePath))
+            {
+                foreach (var line in File.ReadAllLines(filePath))
+                {
+                    // Skip empty lines
+                    if (string.IsNullOrWhiteSpace(line)) continue;
+
+                    // Split by '=' into key and value
+                    var parts = line.Split('=');
+                    if (parts.Length == 2)
+                    {
+                        string key = parts[0].Trim();
+                        string value = parts[1].Trim();
+                        settings[key] = value;
+                    }
+                }
+
+                // Example: print out the settings
+                foreach (var kvp in settings)
+                {
+                    Console.WriteLine($"{kvp.Key} = {kvp.Value}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Settings file not found.");
+            }
+        }
+        private void checkExisting()
+        {
+            try
+            {
+                // Default settings text
+                string defaultSettings = @"SType=3
+SDay=Sunday
+STime=21:00:00
+Sopera=False
+DayNum=1
+IsMinimize=False
+Startup=False";
+
+                // Get the user's Documents folder
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+
+                // Define your app folder inside Documents
+                string appFolder = Path.Combine(documentsPath, "CSCShutdownApp");
+
+                // Create the folder if it doesn't exist
+                if (!Directory.Exists(appFolder))
+                {
+                    Directory.CreateDirectory(appFolder);
+                    Console.WriteLine("App folder created.");
+                }
+
+                // Define the file path
+                string filePath = Path.Combine(appFolder, "CSCShutdownSettings.txt");
+
+                // If the file doesn't exist, create it with default content
+                if (!File.Exists(filePath))
+                {
+                    File.WriteAllText(filePath, defaultSettings);
+                    Console.WriteLine("Default settings file created.");
+                }
+                else
+                {
+                    Console.WriteLine("Settings file already exists.");
+                }
+
+                Console.WriteLine($"Path: {filePath}");
+            }
+            catch (Exception ex)
+            {
+                timer1.Stop();
+                MessageBox.Show(ex.ToString());
+            }
+            
+        }
         private void setSetting()
         {
             try
             {
-                dayName = Properties.Settings.Default.SDay.ToString();
-                date = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + Properties.Settings.Default.STime.ToString());
-                type = Properties.Settings.Default.SType;
-                opera = Properties.Settings.Default.Sopera;
-                dayNo = Properties.Settings.Default.DayNum;
-                isMinimize = Properties.Settings.Default.IsMinimize;
-                isStartup = Properties.Settings.Default.Startup;
+                //dayName = Properties.Settings.Default.SDay.ToString();
+                //date = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + Properties.Settings.Default.STime.ToString());
+                //type = Properties.Settings.Default.SType;
+                //opera = Properties.Settings.Default.Sopera;
+                //dayNo = Properties.Settings.Default.DayNum;
+                //isMinimize = Properties.Settings.Default.IsMinimize;
+                //isStartup = Properties.Settings.Default.Startup;
+
+                string documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
+                string appFolder = Path.Combine(documentsPath, "CSCShutdownApp");
+                string filePath = Path.Combine(appFolder, "CSCShutdownSettings.txt");
+
+                settings = SettingsLoader.LoadSettings(filePath);
+
+                dayName = settings["SDay"];
+                date = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyyy") + " " + settings["STime"]);
+                type = int.Parse(settings["SType"]);
+                opera = bool.Parse(settings["Sopera"]);
+                dayNo = int.Parse(settings["DayNum"]);
+                isMinimize = bool.Parse(settings["IsMinimize"]);
+                isStartup = bool.Parse(settings["Startup"]);
 
                 groupBox2.Visible = true;
                 cboDay.Text = dayName;
@@ -250,11 +415,15 @@ namespace CSCShutdown
                     rbShutdown.Checked = true;
                 else
                     rbRestart.Checked = true;
+
+                timer1.Enabled = true;
+                timer1.Start();
             }
             catch (Exception ex)
             {
+                timer1.Stop();
                 MessageBox.Show("Wrong Setting! " + ex.ToString());
-                //throw;
+                Console.WriteLine(ex.ToString());
             }
             
         }
@@ -267,7 +436,7 @@ namespace CSCShutdown
                 rbMonthly.Checked = true;
             else if (opt == 3)
                 rbDWeek.Checked = true;
-            else
+            else if (opt == 4)
                 rbDmonth.Checked = true;
 
         }
@@ -309,7 +478,10 @@ namespace CSCShutdown
         int daysInCurrentMonth;
         private void isMonthly()
         {
-            //DateTime today = DateTime.Today;            
+            if(DateTime.Now.Day>dayNo)
+                date = Convert.ToDateTime(dayNo.ToString() +$"/{DateTime.Now.AddMonths(1).Month.ToString()}"+ today.ToString("/yyy") + " " + date.TimeOfDay.ToString());
+            else
+                date = Convert.ToDateTime(dayNo.ToString() + today.ToString("/MM/yyy") + " " + date.TimeOfDay.ToString());
             lblSDD.Visible = false;
             lblDateN.Visible = false;
 
@@ -341,16 +513,18 @@ namespace CSCShutdown
         {
             lblSDD.Visible = false;
             lblDateN.Visible = false;
+            date = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + date.TimeOfDay.ToString());
             if (SystemCTL.IsDayofWeek(today, dayName))
             {
                 DoOperation();
-
+                //Console.WriteLine("It's time to do operation");
                 label1.Text = $"{today:dddd, MMMM d, yyyy} is {dayName} of the week.";
 
             }
             else
             {
                 label1.Text = $"{today:dddd, MMMM d, yyyy} is not {dayName} of the week.";
+                lblCountDown.Text = "Not time yet! ";
             }
         }
         private void IsDayofMonth()
@@ -366,19 +540,20 @@ namespace CSCShutdown
             }
             else
             {
-                label1.Text = $"{today:dddd, MMMM d, yyyy} is not the first {dayName}.";
-                
+                label1.Text = $"{today:dddd, MMMM d, yyyy} is not the first {dayName} of the month.";
+                lblCountDown.Text = "Not time yet! ";
+
             }
-            if (SystemCTL.GetFirstSundayOfMonth(today, dayName).Day < today.Day)
-            {
-                date = Convert.ToDateTime(SystemCTL.GetFirstSundayOfMonth(today.AddMonths(1), dayName).ToString("dd/MM/yyy") + " " + date.TimeOfDay.ToString());
-            }
-            else
-            {
-                date = Convert.ToDateTime(SystemCTL.GetFirstSundayOfMonth(today, dayName).ToString("dd/MM/yyy") + " " + date.TimeOfDay.ToString());
-            }
+            //if (SystemCTL.GetFirstSundayOfMonth(today, dayName).Day < today.Day)
+            //{
+            //    date = Convert.ToDateTime(SystemCTL.GetFirstSundayOfMonth(today.AddMonths(1), dayName).ToString("dd/MM/yyy") + " " + date.TimeOfDay.ToString());
+            //}
+            //else
+            //{
+            //    date = Convert.ToDateTime(SystemCTL.GetFirstSundayOfMonth(today, dayName).ToString("dd/MM/yyy") + " " + date.TimeOfDay.ToString());
+            //}
         }
-        DateTime today;
+        
         private void DoOperation()
         {
             var t1 = today;
@@ -398,24 +573,50 @@ namespace CSCShutdown
                             SystemCTL.Shutdown((int)t3.TotalSeconds);
                         else
                             SystemCTL.Restart((int)t3.TotalSeconds);
-                        //lblCountDown.Text = "Operation S R";
-                    }else if((t3.Minutes==10 || t3.Minutes== 5 || t3.Minutes == 2 || t3.Minutes == 1) && t3.Hours == 0 && t3.Seconds == 0)
+                        //Console.WriteLine($"It is Time Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+                    }
+                    else if((t3.Minutes==10 || t3.Minutes== 5 || t3.Minutes == 2 || t3.Minutes == 1) && t3.Hours == 0 && t3.Seconds == 0)
                     {
                         notifyIcon1.Visible = true;
                         notifyIcon1.BalloonTipTitle = $"{operation}"; 
                         notifyIcon1.BalloonTipText = $"Computer will be {operation} in {t3.Minutes} Minute!"; 
                         notifyIcon1.ShowBalloonTip(3000);
-                    }
+                    }                   
                 }
                 else if (t3.TotalMinutes < 0)
                     lblCountDown.Text = $"Over time to {operation}!";
                 else
                     lblCountDown.Text = "Not time yet! ";
+
+                //reset timer
+                if (t3.Days >= 0 && t3.Hours >= 2 && t3.Minutes >= 0)
+                {
+                    timer1.Interval = (int)TimeSpan.FromHours(1).TotalMilliseconds; // 1h
+                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+                }
+                else if (t3.Days >= 0 && t3.Hours >= 1 && t3.Minutes >= 0)
+                {
+                    timer1.Interval = (int)TimeSpan.FromMinutes(30).TotalMilliseconds; // 30m
+                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+                }
+                else
+                if (t3.Days >= 0 && t3.Hours >= 0 && t3.Minutes >= 30)
+                {
+                    timer1.Interval = (int)TimeSpan.FromSeconds(10).TotalMilliseconds; // 10s                                                                                             
+                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+                }
+                else
+                {
+                    timer1.Interval = 1000; // 1s                                                 
+                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+                }
             }
             catch (Exception ex)
             {
-                MessageBox.Show("Error : "+ex.ToString());
+                timer1.Stop();
+                //MessageBox.Show("Error : "+ex.ToString());
                 //throw;
+                Console.WriteLine(ex.ToString());
             }            
             
         }
@@ -450,5 +651,53 @@ namespace CSCShutdown
                 notifyIcon1.ShowBalloonTip(3000); // Show notification for 3 seconds
             }            
         }
+
+        private void CSCShutdown_Load(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(timer1.Interval.ToString());
+            readTxtFile();
+        }
+
+        //static void SetNextInterval()
+        //{
+        //    TimeSpan remaining = nextTargetTime - DateTime.Now;
+
+        //    if (remaining.TotalHours >= 2)
+        //    {               
+        //        timer.Interval = TimeSpan.FromHours(1).TotalMilliseconds; // 1h
+        //    }
+        //    else if (remaining.TotalHours >= 1)
+        //    {
+        //        timer.Interval = TimeSpan.FromMinutes(30).TotalMilliseconds; // 30m
+        //    }
+        //    else if (remaining.TotalMinutes >= 1)
+        //    {
+        //        timer.Interval = TimeSpan.FromSeconds(10).TotalMilliseconds; // 10s
+        //    }
+        //    else
+        //    {
+        //        timer.Interval = 1000; // 1s
+        //    }            
+        //    Console.WriteLine($"Next interval set to {timer.Interval / 1000} seconds");
+        //}
+        //static void Timer_Elapsed(object sender, ElapsedEventArgs e)
+        //{
+        //    TimeSpan remaining = nextTargetTime - DateTime.Now;
+
+        //    if (remaining <= TimeSpan.Zero)
+        //    {
+        //        Console.WriteLine("Target time reached!");
+        //        timer.Stop();
+        //        return;
+        //    }
+
+        //    Console.WriteLine($"Remaining: {remaining}");
+        //    SetNextInterval(); // Adjust interval dynamically
+        //}
     }
 }

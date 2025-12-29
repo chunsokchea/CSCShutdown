@@ -56,12 +56,14 @@ namespace CSCShutdown
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.lblDay = new System.Windows.Forms.Label();
             this.cboDayNo = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.cboDay = new System.Windows.Forms.ComboBox();
             this.label2 = new System.Windows.Forms.Label();
             this.dtpHour = new System.Windows.Forms.DateTimePicker();
+            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.cbStart = new System.Windows.Forms.CheckBox();
             this.cbState = new System.Windows.Forms.CheckBox();
+            this.lbltimer = new System.Windows.Forms.Label();
+            this.button1 = new System.Windows.Forms.Button();
             this.contextMenuStrip1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -86,19 +88,19 @@ namespace CSCShutdown
             this.showToolStripMenuItem,
             this.exitToolStripMenuItem});
             this.contextMenuStrip1.Name = "contextMenuStrip1";
-            this.contextMenuStrip1.Size = new System.Drawing.Size(104, 48);
+            this.contextMenuStrip1.Size = new System.Drawing.Size(106, 48);
             // 
             // showToolStripMenuItem
             // 
             this.showToolStripMenuItem.Name = "showToolStripMenuItem";
-            this.showToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.showToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.showToolStripMenuItem.Text = "Show";
             this.showToolStripMenuItem.Click += new System.EventHandler(this.showToolStripMenuItem_Click);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(105, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.exitToolStripMenuItem_Click);
             // 
@@ -115,7 +117,7 @@ namespace CSCShutdown
             // timer1
             // 
             this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
+            this.timer1.Interval = 360000;
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // label1
@@ -240,18 +242,18 @@ namespace CSCShutdown
             this.lblNow.AutoSize = true;
             this.lblNow.Location = new System.Drawing.Point(105, 174);
             this.lblNow.Name = "lblNow";
-            this.lblNow.Size = new System.Drawing.Size(35, 13);
+            this.lblNow.Size = new System.Drawing.Size(27, 13);
             this.lblNow.TabIndex = 3;
-            this.lblNow.Text = "label3";
+            this.lblNow.Text = "N/A";
             // 
             // lblDateN
             // 
             this.lblDateN.AutoSize = true;
             this.lblDateN.Location = new System.Drawing.Point(367, 174);
             this.lblDateN.Name = "lblDateN";
-            this.lblDateN.Size = new System.Drawing.Size(35, 13);
+            this.lblDateN.Size = new System.Drawing.Size(27, 13);
             this.lblDateN.TabIndex = 4;
-            this.lblDateN.Text = "label4";
+            this.lblDateN.Text = "N/A";
             // 
             // label3
             // 
@@ -314,14 +316,6 @@ namespace CSCShutdown
             this.cboDayNo.TabIndex = 5;
             this.cboDayNo.Visible = false;
             // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.Location = new System.Drawing.Point(3, 109);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(152, 20);
-            this.dateTimePicker1.TabIndex = 4;
-            this.dateTimePicker1.Visible = false;
-            // 
             // cboDay
             // 
             this.cboDay.FormattingEnabled = true;
@@ -348,6 +342,14 @@ namespace CSCShutdown
             this.dtpHour.Size = new System.Drawing.Size(152, 20);
             this.dtpHour.TabIndex = 1;
             // 
+            // dateTimePicker1
+            // 
+            this.dateTimePicker1.Location = new System.Drawing.Point(3, 109);
+            this.dateTimePicker1.Name = "dateTimePicker1";
+            this.dateTimePicker1.Size = new System.Drawing.Size(152, 20);
+            this.dateTimePicker1.TabIndex = 4;
+            this.dateTimePicker1.Visible = false;
+            // 
             // cbStart
             // 
             this.cbStart.AutoSize = true;
@@ -368,11 +370,34 @@ namespace CSCShutdown
             this.cbState.Text = "Minimize on start up";
             this.cbState.UseVisualStyleBackColor = true;
             // 
+            // lbltimer
+            // 
+            this.lbltimer.AutoSize = true;
+            this.lbltimer.Location = new System.Drawing.Point(105, 215);
+            this.lbltimer.Name = "lbltimer";
+            this.lbltimer.Size = new System.Drawing.Size(48, 13);
+            this.lbltimer.TabIndex = 8;
+            this.lbltimer.Text = "TimerCD";
+            this.lbltimer.Visible = false;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(258, 229);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 9;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // CSCShutdown
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(506, 266);
+            this.Controls.Add(this.button1);
+            this.Controls.Add(this.lbltimer);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.lblSDD);
@@ -391,6 +416,7 @@ namespace CSCShutdown
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "CSCShutdown";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.CSCShutdown_FormClosing);
+            this.Load += new System.EventHandler(this.CSCShutdown_Load);
             this.Shown += new System.EventHandler(this.CSCShutdown_Shown);
             this.Resize += new System.EventHandler(this.Form1_Resize);
             this.contextMenuStrip1.ResumeLayout(false);
@@ -410,7 +436,6 @@ namespace CSCShutdown
 
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Button btnSave;
-        private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
         private System.Windows.Forms.RadioButton rbDmonth;
@@ -439,6 +464,9 @@ namespace CSCShutdown
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.CheckBox cbStart;
         private System.Windows.Forms.CheckBox cbState;
+        private System.Windows.Forms.Label lbltimer;
+        private System.Windows.Forms.Button button1;
+        internal System.Windows.Forms.Timer timer1;
     }
 }
 
