@@ -1,18 +1,18 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\NAGA-02\\source\\repos\\CSCShutdown\\",
+  "WorkspaceRootPath": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|C:\\Users\\NAGA-02\\source\\repos\\CSCShutdown\\cscshutdown\\formshutdown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|d:\\workplace\\devworkplace\\cscshutdown\\cscshutdown\\formshutdown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|solutionrelative:cscshutdown\\formshutdown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|C:\\Users\\NAGA-02\\source\\repos\\CSCShutdown\\cscshutdown\\formshutdown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
+      "AbsoluteMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|D:\\Workplace\\DevWorkplace\\CSCShutdown\\cscshutdown\\formshutdown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|solutionrelative:cscshutdown\\formshutdown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|c:\\users\\naga-02\\source\\repos\\cscshutdown\\cscshutdown\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|solutionrelative:cscshutdown\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|solutionrelative:CSCShutdown\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -28,24 +28,23 @@
               "$type": "Document",
               "DocumentIndex": 2,
               "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\NAGA-02\\source\\repos\\CSCShutdown\\CSCShutdown\\Program.cs",
+              "DocumentMoniker": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\Program.cs",
               "RelativeDocumentMoniker": "CSCShutdown\\Program.cs",
-              "ToolTip": "C:\\Users\\NAGA-02\\source\\repos\\CSCShutdown\\CSCShutdown\\Program.cs",
+              "ToolTip": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\Program.cs",
               "RelativeToolTip": "CSCShutdown\\Program.cs",
               "ViewState": "AgIAAAUAAAAAAAAAAAAtwBsAAAAQAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-29T05:20:43.706Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-29T05:20:43.706Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 0,
               "Title": "FormShutdown.cs",
-              "DocumentMoniker": "C:\\Users\\NAGA-02\\source\\repos\\CSCShutdown\\CSCShutdown\\FormShutdown.cs",
+              "DocumentMoniker": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\FormShutdown.cs",
               "RelativeDocumentMoniker": "CSCShutdown\\FormShutdown.cs",
-              "ToolTip": "C:\\Users\\NAGA-02\\source\\repos\\CSCShutdown\\CSCShutdown\\FormShutdown.cs*",
+              "ToolTip": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\FormShutdown.cs*",
               "RelativeToolTip": "CSCShutdown\\FormShutdown.cs*",
-              "ViewState": "AgIAAHgCAAAAAAAAAAAzwJACAAAmAAAAAAAAAA==",
+              "ViewState": "AgIAAM8BAAAAAAAAAAAQwBkAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-29T05:02:56.087Z",
               "EditorCaption": ""
@@ -54,9 +53,9 @@
               "$type": "Document",
               "DocumentIndex": 1,
               "Title": "FormShutdown.cs [Design]",
-              "DocumentMoniker": "C:\\Users\\NAGA-02\\source\\repos\\CSCShutdown\\CSCShutdown\\FormShutdown.cs",
+              "DocumentMoniker": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\FormShutdown.cs",
               "RelativeDocumentMoniker": "CSCShutdown\\FormShutdown.cs",
-              "ToolTip": "C:\\Users\\NAGA-02\\source\\repos\\CSCShutdown\\CSCShutdown\\FormShutdown.cs [Design]*",
+              "ToolTip": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\FormShutdown.cs [Design]*",
               "RelativeToolTip": "CSCShutdown\\FormShutdown.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-29T05:02:04.535Z",

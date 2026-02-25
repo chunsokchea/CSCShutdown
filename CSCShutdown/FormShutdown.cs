@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading;
 using System.Timers;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.Tab;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.TaskbarClock;
 
 
@@ -410,7 +411,13 @@ Startup=False";
                 settings = SettingsLoader.LoadSettings(filePath);
 
                 dayName = settings["SDay"];
-                date = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyyy") + " " + settings["STime"]);
+                //date = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyyy") + " " + settings["STime"]);
+                var date = DateTime.Now.Date;
+                var time = TimeSpan.Parse(settings["STime"]); // e.g. "14:30"
+                var datetime = date.Add(time);
+                Console.WriteLine(datetime.ToLocalTime());
+                date = datetime;
+
                 type = int.Parse(settings["SType"]);
                 opera = bool.Parse(settings["Sopera"]);
                 dayNo = int.Parse(settings["DayNum"]);
@@ -487,7 +494,8 @@ Startup=False";
         {
             lblSDD.Visible = false;
             lblDateN.Visible = false;
-            dateToday = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + dateToday.TimeOfDay.ToString());
+            //dateToday = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + dateToday.TimeOfDay.ToString());
+            lblNow.Text = dateToday.ToLongDateString();
             DoOperation();
         }
         int daysInCurrentMonth;
@@ -499,6 +507,8 @@ Startup=False";
                 dateToday = Convert.ToDateTime(dayNo.ToString() + dateToday.ToString("/MM/yyy") + " " + dateToday.TimeOfDay.ToString());
             lblSDD.Visible = false;
             lblDateN.Visible = false;
+
+            lblNow.Text = dateToday.ToLongDateString();
 
             if (SystemCTL.IsMonthly(date) && dateToday.Day==dayNo )
             {
@@ -529,7 +539,11 @@ Startup=False";
             lblSDD.Visible = false;
             lblDateN.Visible = false;
             //date=dateToday;
-            dateToday = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + dateToday.TimeOfDay.ToString());
+            //dateToday = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + dateToday.TimeOfDay.ToString());
+            dateToday = DateTime.Today;
+
+            lblNow.Text = dateToday.ToLongDateString();
+
             if (SystemCTL.IsDayofWeek(dateToday, dayName))
             {
                 DoOperation();
@@ -548,6 +562,9 @@ Startup=False";
             lblSDD.Visible = true;
             lblDateN.Visible = true;
             dateToday = DateTime.Today;
+
+            lblNow.Text = dateToday.ToLongDateString();
+
             if (SystemCTL.IsFirstDayofMonth(dateToday, dayName))
             {
                 DoOperation();
@@ -650,9 +667,9 @@ Startup=False";
 
         private void CSCShutdown_Load(object sender, EventArgs e)
         {
-            //dateToday = DateTime.Now;
+            dateToday = DateTime.Now;
             //DoOperation();
-           
+
             dtpHour.Format = DateTimePickerFormat.Time;
             dtpHour.ShowUpDown = true;
         }

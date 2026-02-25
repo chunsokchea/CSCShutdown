@@ -24,3 +24,16 @@ C:\Users\NAGA-02\source\repos\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.cs
 C:\Users\NAGA-02\source\repos\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.csproj.CoreCompileInputs.cache
 C:\Users\NAGA-02\source\repos\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.exe
 C:\Users\NAGA-02\source\repos\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.pdb
+D:\Workplace\DevWorkplace\CSCShutdown\CSCShutdown\bin\Release\CSCShutdown.exe.config
+D:\Workplace\DevWorkplace\CSCShutdown\CSCShutdown\bin\Release\CSCShutdown.exe
+D:\Workplace\DevWorkplace\CSCShutdown\CSCShutdown\bin\Release\CSCShutdown.pdb
+D:\Workplace\DevWorkplace\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.csproj.AssemblyReference.cache
+D:\Workplace\DevWorkplace\CSCShutdown\CSCShutdown\obj\Release\Interop.IWshRuntimeLibrary.dll
+D:\Workplace\DevWorkplace\CSCShutdown\CSCShutdown\obj\Release\Interop.Shell32.dll
+D:\Workplace\DevWorkplace\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.csproj.ResolveComReference.cache
+D:\Workplace\DevWorkplace\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.FormShutdown.resources
+D:\Workplace\DevWorkplace\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.Properties.Resources.resources
+D:\Workplace\DevWorkplace\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.csproj.GenerateResource.cache
+D:\Workplace\DevWorkplace\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.csproj.CoreCompileInputs.cache
+D:\Workplace\DevWorkplace\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.exe
+D:\Workplace\DevWorkplace\CSCShutdown\CSCShutdown\obj\Release\CSCShutdown.pdb
