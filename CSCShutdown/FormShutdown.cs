@@ -495,7 +495,9 @@ Startup=False";
             lblSDD.Visible = false;
             lblDateN.Visible = false;
             //dateToday = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + dateToday.TimeOfDay.ToString());
+            
             lblNow.Text = dateToday.ToLongDateString();
+
             DoOperation();
         }
         int daysInCurrentMonth;
@@ -589,6 +591,7 @@ Startup=False";
         
         private void DoOperation()
         {
+            Console.WriteLine(date.ToString() + " " + dateToday.ToString());
             var t1 = dateToday;
             var t2 = date;
             var t3 = (t2 - t1);            
@@ -668,7 +671,10 @@ Startup=False";
         private void CSCShutdown_Load(object sender, EventArgs e)
         {
             dateToday = DateTime.Now;
-            //DoOperation();
+            //DoOperation();            
+            var time1 = TimeSpan.Parse(settings["STime"]); // e.g. "14:30"
+            var datetime = dateToday.Date.Add(time1);
+            date = datetime;
 
             dtpHour.Format = DateTimePickerFormat.Time;
             dtpHour.ShowUpDown = true;
