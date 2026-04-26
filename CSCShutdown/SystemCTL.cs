@@ -39,14 +39,14 @@ namespace CSCShutdown
         //    else
         //        return 0;
         //}
-        public static DateTime GetFirstSundayOfMonth(DateTime datein, string dayName)
+        public static DateTime GetFirstDayOfMonth(DateTime datein, string dayName)
         {
             for (int day = 1; day <= DateTime.DaysInMonth(datein.Year, datein.Month); day++)
             {
                 DateTime date = new DateTime(datein.Year, datein.Month, day);
                 if (date.DayOfWeek.ToString() == dayName)
                 {
-                    return date;
+                    return date.Add(datein.TimeOfDay);
                 }
             }
             throw new InvalidOperationException("This should never happen.");
@@ -156,6 +156,7 @@ namespace CSCShutdown
                 shortcut.Save();
             }
         }
+
 
     }
 }

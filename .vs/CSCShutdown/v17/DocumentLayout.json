@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|solutionrelative:cscshutdown\\formshutdown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|d:\\workplace\\devworkplace\\cscshutdown\\cscshutdown\\systemctl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|solutionrelative:cscshutdown\\systemctl.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|D:\\Workplace\\DevWorkplace\\CSCShutdown\\cscshutdown\\formshutdown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
       "RelativeMoniker": "D:0:0:{BEFD52B3-CC5E-4770-80FA-B66FC4B4D3DB}|CSCShutdown\\CSCShutdown.csproj|solutionrelative:cscshutdown\\formshutdown.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
@@ -22,11 +26,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 1,
+              "Title": "SystemCTL.cs",
+              "DocumentMoniker": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\SystemCTL.cs",
+              "RelativeDocumentMoniker": "CSCShutdown\\SystemCTL.cs",
+              "ToolTip": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\SystemCTL.cs",
+              "RelativeToolTip": "CSCShutdown\\SystemCTL.cs",
+              "ViewState": "AgIAACIAAAAAAAAAAAAQwDMAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-26T08:22:14.94Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\Program.cs",
               "RelativeDocumentMoniker": "CSCShutdown\\Program.cs",
@@ -42,21 +59,21 @@
               "Title": "FormShutdown.cs",
               "DocumentMoniker": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\FormShutdown.cs",
               "RelativeDocumentMoniker": "CSCShutdown\\FormShutdown.cs",
-              "ToolTip": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\FormShutdown.cs",
-              "RelativeToolTip": "CSCShutdown\\FormShutdown.cs",
-              "ViewState": "AgIAAKUBAAAAAAAAAAAuwKICAAAVAAAAAAAAAA==",
+              "ToolTip": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\FormShutdown.cs*",
+              "RelativeToolTip": "CSCShutdown\\FormShutdown.cs*",
+              "ViewState": "AgIAANcBAAAAAAAAAAApwPUBAAAlAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-29T05:02:56.087Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "FormShutdown.cs [Design]",
               "DocumentMoniker": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\FormShutdown.cs",
               "RelativeDocumentMoniker": "CSCShutdown\\FormShutdown.cs",
-              "ToolTip": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\FormShutdown.cs [Design]",
-              "RelativeToolTip": "CSCShutdown\\FormShutdown.cs [Design]",
+              "ToolTip": "D:\\Workplace\\DevWorkplace\\CSCShutdown\\CSCShutdown\\FormShutdown.cs [Design]*",
+              "RelativeToolTip": "CSCShutdown\\FormShutdown.cs [Design]*",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-29T05:02:04.535Z",
               "EditorCaption": " [Design]"

@@ -23,7 +23,7 @@ namespace CSCShutdown
         Dictionary<string, string> settings = new Dictionary<string, string>();
         string dayName;
         DateTime date;
-        DateTime dateToday=DateTime.Now;
+        DateTime dateToday;
         int type;
         bool opera;
         int dayNo;
@@ -54,7 +54,7 @@ namespace CSCShutdown
                     StartupShortcut.AddApplicationToStartup();
             }
             ConfigureStartupCheckbox();
-            dateToday= DateTime.Now;
+            //dateToday= DateTime.Now;
         }
         private void ConfigureStartupCheckbox()
         {
@@ -118,9 +118,9 @@ namespace CSCShutdown
         private void Timer1_Tick(object sender, EventArgs e)
         {
             try
-            {
-                Console.WriteLine(timer1.Interval.ToString());
+            {                
                 dateToday = DateTime.Now;
+                Console.WriteLine(timer1.Interval.ToString()+" Today: "+dateToday.ToString());
                 //today = Convert.ToDateTime(dateTimePicker1.Value.ToString("dd/MM/yyy") + " " + DateTime.Now.TimeOfDay.ToString());            
                 daysInCurrentMonth = DateTime.DaysInMonth(dateToday.Year, dateToday.Month);
                 dayNo = dayNo > daysInCurrentMonth ? daysInCurrentMonth : dayNo;
@@ -129,36 +129,7 @@ namespace CSCShutdown
                 doShutdownorRestart();
 
                 lblNow.Text = dateToday.ToShortDateString();
-                lblDateN.Text = SystemCTL.GetFirstSundayOfMonth(dateToday.AddMonths(1), dayName).ToShortDateString();
-
-                var t1 = dateToday;
-                var t2 = date;
-                var t3 = (t2 - t1);
-
-                Console.WriteLine($"Inverval: {timer1.Interval.ToString()}, Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
-                //reset timer
-                if (t3.Days >= 0 && t3.Hours >= 2 && t3.Minutes >= 0)
-                {
-                    timer1.Interval = (int)TimeSpan.FromHours(1).TotalMilliseconds; // 1h
-                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
-                }
-                else if (t3.Days >= 0 && t3.Hours >= 1 && t3.Minutes >= 0)
-                {
-                    timer1.Interval = (int)TimeSpan.FromMinutes(30).TotalMilliseconds; // 30m
-                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
-                }
-                else
-                if (t3.Days >= 0 && t3.Hours >= 0 && t3.Minutes >= 30)
-                {
-                    timer1.Interval = (int)TimeSpan.FromSeconds(10).TotalMilliseconds; // 10s                                                                                             
-                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
-                }
-                else
-                {
-                    timer1.Interval = 1000; // 1s                                                 
-                    Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
-                }
-                Console.WriteLine($"Inverval: {timer1.Interval.ToString()}, Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+                lblDateN.Text = SystemCTL.GetFirstDayOfMonth(dateToday.AddMonths(1), dayName).ToShortDateString();               
 
             }
             catch (Exception ex)
@@ -473,7 +444,7 @@ Startup=False";
 
         private void doShutdownorRestart()
         {            
-            dateToday= DateTime.Now;
+            //dateToday= DateTime.Now;
             switch (type)
             {
                 case 1:                   
@@ -488,7 +459,37 @@ Startup=False";
                 case 4:                    
                     IsDayofMonth();
                     break;
-            }            
+            }
+
+            var t1 = DateTime.Now;            
+            var t2 = date;
+            var t3 = (t2 - t1);
+            //var nextday = SystemCTL.GetNextDay(date, "Sunday");
+            Console.WriteLine("Today: "+t1.ToString()+" Day: "+t2.ToString()+" remain: "+t3.ToString());
+            Console.WriteLine($"Inverval: {timer1.Interval.ToString()}, Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+            //reset timer
+            if (t3.Days >= 0 && t3.Hours >= 2 && t3.Minutes >= 0)
+            {
+                timer1.Interval = (int)TimeSpan.FromHours(1).TotalMilliseconds; // 1h
+                Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+            }
+            else if (t3.Days >= 0 && t3.Hours >= 1 && t3.Minutes >= 0)
+            {
+                timer1.Interval = (int)TimeSpan.FromMinutes(30).TotalMilliseconds; // 30m
+                Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+            }
+            else
+            if (t3.Days >= 0 && t3.Hours >= 0 && t3.Minutes >= 30)
+            {
+                timer1.Interval = (int)TimeSpan.FromSeconds(10).TotalMilliseconds; // 10s                                                                                             
+                Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+            }
+            else
+            {
+                timer1.Interval = 1000; // 1s                                                 
+                Console.WriteLine($"Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
+            }
+            Console.WriteLine($"Inverval: {timer1.Interval.ToString()}, Days: {t3.Days}, Hours: {t3.Hours}, Minutes: {t3.Minutes}");
         }
         private void isDaily()
         {
@@ -497,21 +498,24 @@ Startup=False";
             //dateToday = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + dateToday.TimeOfDay.ToString());
             
             lblNow.Text = dateToday.ToLongDateString();
-
+            if (date < dateToday)
+                date = date.AddDays(1);
             DoOperation();
         }
         int daysInCurrentMonth;
         private void isMonthly()
         {
-            if(DateTime.Now.Day>dayNo)
-                dateToday = Convert.ToDateTime(dayNo.ToString() +$"/{DateTime.Now.AddMonths(1).Month.ToString()}"+ dateToday.ToString("/yyy") + " " + dateToday.TimeOfDay.ToString());
-            else
-                dateToday = Convert.ToDateTime(dayNo.ToString() + dateToday.ToString("/MM/yyy") + " " + dateToday.TimeOfDay.ToString());
+            if (DateTime.Now.Day > dayNo)
+                dateToday = Convert.ToDateTime(DateTime.Now.Day.ToString() + $"/{DateTime.Now.AddMonths(1).Month.ToString()}" + DateTime.Now.ToString("/yyy") + " " + DateTime.Now.TimeOfDay.ToString());
+            //else
+            //    dateToday = DateTime.Now;//Convert.ToDateTime(dayNo.ToString() + dateToday.ToString("/MM/yyy") + " " + DateTime.Now.TimeOfDay.ToString());
             lblSDD.Visible = false;
             lblDateN.Visible = false;
 
             lblNow.Text = dateToday.ToLongDateString();
-
+            Console.WriteLine("IsMonthly: "+SystemCTL.IsMonthly(date).ToString()+" Date: "+date.ToString());
+            if (DateTime.Now > date)
+                date = date.AddMonths(1);
             if (SystemCTL.IsMonthly(date) && dateToday.Day==dayNo )
             {
                 DoOperation();
@@ -542,7 +546,10 @@ Startup=False";
             lblDateN.Visible = false;
             //date=dateToday;
             //dateToday = Convert.ToDateTime(DateTime.Now.Date.ToString("dd/MM/yyy") + " " + dateToday.TimeOfDay.ToString());
-            dateToday = DateTime.Today;
+            //dateToday = DateTime.Now;
+            
+            if (date < dateToday)
+                date = SystemCTL.GetNextDay(date, dayName, date.TimeOfDay);
 
             lblNow.Text = dateToday.ToLongDateString();
 
@@ -563,10 +570,16 @@ Startup=False";
         {
             lblSDD.Visible = true;
             lblDateN.Visible = true;
-            dateToday = DateTime.Today;
+            //dateToday = DateTime.Today;
 
             lblNow.Text = dateToday.ToLongDateString();
 
+            date = SystemCTL.GetFirstDayOfMonth(date, dayName);
+
+            if (date < dateToday)
+                date = SystemCTL.GetFirstDayOfMonth(date, dayName).AddMonths(1);
+
+            Console.WriteLine("IsDayofMonth: " + SystemCTL.GetFirstDayOfMonth(dateToday, dayName).ToString() + " / Date: " + date.ToString() +" Today: "+dateToday.ToString());
             if (SystemCTL.IsFirstDayofMonth(dateToday, dayName))
             {
                 DoOperation();
@@ -591,11 +604,11 @@ Startup=False";
         
         private void DoOperation()
         {
-            Console.WriteLine(date.ToString() + " " + dateToday.ToString());
+            Console.WriteLine("Date: "+date.ToString() + " Today: " + dateToday.ToString());
             var t1 = dateToday;
             var t2 = date;
-            var t3 = (t2 - t1);            
-
+            var t3 = (t2 - t1);
+            //Console.WriteLine(t3.ToString());
             var operation = opera == true ? "Shutdown" : "Restart";
             try
             {
